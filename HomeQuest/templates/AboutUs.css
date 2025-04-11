@@ -1,0 +1,147 @@
+/* General Styles */
+body {
+    font-family: 'georgia', sans-serif;
+    background: linear-gradient(to right, #c1b8a7, #837a69);
+    color: white; 
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(to right, #2b2a26, #3e3d39);
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: white !important;
+    font-weight: bold;
+    font-family: 'Nexa', sans-serif;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #d1b38c !important;
+}
+
+.navbar-collapse {
+    padding-bottom: 10px;
+}
+
+/* About Us Section */
+.container.my-5 {
+    background: rgb(47, 41, 34);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: #ede6e3;
+}
+
+/* Uniform Paragraph Style */
+.about-text {
+    font-size: 1.2rem;  /* Set uniform font size for all paragraphs */
+    color: white;
+    text-align: justify;
+}
+
+/* Contact Info Section */
+.contact-info {
+    background: rgb(47, 41, 34);
+    padding: 20px 20px 10px; /* Reduced padding and no bottom padding */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Reduced space between sections */
+    margin-bottom: 0; /* No space between contact info and footer */
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    color: #ede6e3;
+    margin-bottom: 10px; /* Reduced space between title and text */
+    text-align: center; /* Center-align the title */
+}
+
+.contact-content {
+    font-size: 1rem; /* Smaller text for contact info */
+    margin-bottom: 10px; /* Reduced space between paragraphs */
+    text-align: center; /* Center-align the contact information */
+}
+
+.contact-text {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 5px; /* Reduced space between contact items */
+}
+
+/* Remove links and make them plain text */
+.contact-text a {
+    text-decoration: none;
+    color: white;
+}
+
+.contact-text a:hover {
+    text-decoration: none;
+}
+
+.contact-text {
+    font-size: 1rem;
+    color: white;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(to right, #222, #444);
+    color: white;
+    padding: 10px 0; /* Reduced padding for the footer */
+    margin-top: 0; /* No space between contact info and footer */
+    text-align: center; /* Center-align the footer text */
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    justify-content: right;
+    padding: 10px;
+}
+
+.logo-container img {
+    border-radius: 10px;
+    width: 200px; 
+    height: auto;
+    border: 1px solid #000000;
+    box-shadow: 0 4px 8px #00000041;
+}
+
+.about-content img {
+    float: right;
+    margin: 0 0 20px 30px;
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    box-shadow: 0 4px 8px #00000041;
+}
+
+.about-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}

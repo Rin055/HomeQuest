@@ -1,0 +1,119 @@
+/* General Styles */
+body {
+    font-family: 'georgia', sans-serif;
+    background: linear-gradient(to right, #c1b8a7, #837a69);
+    color: white; 
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(to right, #2b2a26, #3e3d39);
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: white !important;
+    font-weight: bold;
+    font-family: 'Nexa', sans-serif;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #d1b38c !important;
+}
+
+.navbar-collapse {
+    padding-bottom: 10px;
+}
+
+/* About Us Section */
+.container.my-5 {
+    background: rgb(47, 41, 34);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 2rem;
+    color: #ede6e3;
+}
+
+/* Uniform Paragraph Style */
+.about-text {
+    font-size: 1.2rem;  /* Set uniform font size for all paragraphs */
+    color: #f2f2f2;
+}
+
+/* Contact Info Section */
+.contact-info {
+    background: rgb(47, 41, 34);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    color: #ede6e3;
+}
+
+.contact-text {
+    font-size: 1.2rem;
+    color: #f2f2f2;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(to right, #222, #444);
+    color: white;
+    padding: 15px 0;
+    margin-top: 40%;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    justify-content: right;
+    padding: 10px;
+}
+
+.logo-container img {
+    border-radius: 10px;
+    width: 200px; 
+    height: auto;
+    border: 1px solid #000000;
+    box-shadow: 0 4px 8px #00000041;
+}
+
+.about-content img {
+    float: right;
+    margin: 0 0 20px 30px;
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    box-shadow: 0 4px 8px #00000041;
+}
+
+.about-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}

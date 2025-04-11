@@ -1,0 +1,25 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #c1b8a7, #837a69);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Carousel Images */
+.carousel-img {
+    height: 500px;
+    object-fit: cover; 
+}
+
+
+/* Contact Information */
+.container.my-5 {
+    background: rgb(47, 41, 34);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+

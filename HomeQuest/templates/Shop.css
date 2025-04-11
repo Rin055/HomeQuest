@@ -1,0 +1,45 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #c1b8a7, #837a69);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(to right, hsl(48, 6%, 16%), #3e3d39);
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: white !important;
+    font-weight: bold;
+    font-family: 'Nexa', sans-serif;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #d1b38c !important; 
+}
+
+.navbar-collapse {
+    padding-bottom: 10px;
+}
+
+
+/* Footer */
+.footer {
+    background: linear-gradient(to right, #222, #444);
+    color: white;
+    padding: 15px 0;
+    margin-top: 40%
+}

@@ -1,0 +1,47 @@
+<style>
+.navbar {
+    background: linear-gradient(to right, #2b2a26, #3e3d39);
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: white !important;
+    font-weight: bold;
+    font-family: 'Nexa', sans-serif;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #d1b38c !important;
+}
+
+.navbar-collapse {
+    padding-bottom: 10px;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html">HomeQuest</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="Shop.html">Shop</a></li>
+            <li class="nav-item"><a class="nav-link" href="AboutUs">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+        <form class="form-inline ml-3">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for furniture...">
+            <button class="btn btn-light" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
