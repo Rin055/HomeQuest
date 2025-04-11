@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<!-- site style -->
+<style>  
+  .admin-text {
+      text-shadow: 2px 2px 2px #00000039;
+      color: white;
+      margin-top: 8%;
+      text-align: center;
+    }
+    
+    body {
+      background: linear-gradient(to right, #c1b8a7, #837a69);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* Form Container */
+  form {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 25px;
+      background-color: #e0d7cc;
+      border-radius: 12px;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.184);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* Label Styling */
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+      color: #333;
+    }
+    
+    /* Input Fields */
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #3e3d39;
+      outline: none;
+    }
+     
+    /* Button Styling */
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #3e3d39;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #716d5d;
+    }
+</style>
+
+<h1 class="admin-text">Admin Login</h1>
+
+<form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  
+</body>
+</html>
