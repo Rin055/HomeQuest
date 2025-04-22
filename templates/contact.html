@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact</title>
+</head>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #cac5b9, #b1ab9b);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h2.admin-text {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 60px;
+    color: white;
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.184),
+        0 0 10px rgba(0, 0, 0, 0.101); 
+}
+
+.main-box {
+    background-color: #f0ede9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.184);
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 70%; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+
+button[type="submit"] {
+    background-color: #989173;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #c3b6a7;
+}
+
+.main-wrapper {
+    width: 75%;  
+    margin: 40px auto; 
+}
+
+.accordion .alert {
+    background-color: #fffefc;
+    border: 1px solid #d3cbbd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+    position: relative;
+}
+
+.accordion .alert strong {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 5px;
+    color: #6a5c40;
+}
+
+.accordion .alert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.accordion .btn-danger {
+    background-color: #b66b6b;
+    border: none;
+    padding: 5px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.accordion .btn-danger:hover {
+    background-color: #a14d4d;
+}
+</style>
+<body>
+
+  <h2 class="admin-text">Contact Form</h2>
+
+  <div class="main-box">
+    <form action="/add_question" method="POST">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Name</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
+                   placeholder="Write your name" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput2">Email</label>
+            <input type="email" class="form-control" id="exampleFormControlInput2" name="mail"
+                   placeholder="Write your email" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Question</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="question" rows="3"
+                      placeholder="Write your question here" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+
+  <h2 class="admin-text">frequently asked questions</h2>
+
+  <div class="main-wrapper">
+    <div class="main-box">
+      <div class="accordion" id="faqAccordion">
+        {% if questions %}
+          {% for question in questions %}
+            <div class="alert alert-warning" role="alert">
+              <a href="/delete_question/{{ loop.index0 }}" class="btn btn-danger btn-sm">Delete</a>
+              <strong>{{ question['name'] }}</strong>
+              {{ question['question'] }}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No questions submitted yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
