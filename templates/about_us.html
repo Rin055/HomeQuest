@@ -1,169 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
-    <title>About Us - HomeQuest</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+  />
+  <title>About Us - HomeQuest</title>
 </head>
 
 <body>
-    <!-- Site Style -->
-     <style>
-
-
-body {
-    background: linear-gradient(to right, #eae6de, #beb4a2);
-    color: #333;
-}
-
-.container.my-5 {
-    background: rgb(47, 41, 34);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-h2, h4 {
-    font-size: 1.8rem; 
-    color: white; 
-}
-
-.about-text {
-    font-size: 1.2rem; 
-    color: white;
-    text-align: justify;
-}
-
-
-.contact-info {
-    background: rgb(47, 41, 34);
-    padding: 20px 20px 10px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    margin-bottom: 0; 
-}
-
-.contact-info h2 {
-    color: white; 
-    margin-bottom: 10px; 
-    text-align: center; 
-}
-
-.contact-content {
-    font-size: 1rem; 
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.contact-text {
-    font-size: 1rem;
-    color: white; 
-    margin-bottom: 5px;
-}
-
-.contact-text a {
-    text-decoration: none;
-    color: white;
-}
-
-.contact-text a:hover {
-    text-decoration: none;
-}
-
-/* Logo Styling */
-.logo-container {
-    display: flex;
-    justify-content: right;
-    padding: 10px;
-}
-
-.logo-container img {
-    border-radius: 10px;
-    width: 200px; 
-    height: auto;
-    border: 1px solid #000000;
-    box-shadow: 0 4px 8px #00000041;
-}
-
-.about-content img {
-    float: right;
-    margin: 0 0 20px 30px;
-    width: 200px;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid #000000;
-    box-shadow: 0 4px 8px #00000041;
-}
-
-.about-content::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-     </style>
-
-{% include 'Header.html' %}
+  <style>
+    body {
+      background: linear-gradient(to right, #eae6de, #beb4a2);
+      color: #333;
+    }
      
+    .container.my-5 {
+      background: rgb(47, 41, 34);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
-    <!-- About Us Section -->
-    <section class="container my-5">
-        <h2 class="text-center mb-4">About HomeQuest</h2>
+    h2, h4 {
+      font-size: 1.8rem;
+      color: white;
+    }
 
-        <div class="about-content">
-            <a href="index.html" class="logo">
-                <img src="C:\Users\Mari\Desktop\HomeQuest - Copy\templates\logo.png" alt="HomeQuest Logo" class="logo-img">
-            </a>
-            
-            <h4>The Vision Behind HomeQuest</h4>
-            <p class="about-text">
-                At HomeQuest, we are passionate about creating spaces that resonate with your lifestyle and personal taste. Our vision is simple: to transform your home into a sanctuary that mirrors your individuality.
-            </p>
+    .about-text {
+      font-size: 1.2rem;
+      color: white;
+      text-align: justify;
+    }
 
-            <h4>Personal Introduction</h4>
-            <p class="about-text">
-                Hi, I’m Mariam Koberidze, the founder of HomeQuest. I started this brand to offer beautiful, high-quality furniture and home decor that can transform any space into a comfortable and stylish retreat. At HomeQuest, I’ve carefully curated pieces that blend timeless elegance with modern design, making it easy to create a home you’ll love.
-            </p>
-            
-            <h4>Our Story</h4>
-            <p class="about-text">
-                Founded with a passion for interior design and an eye for detail, HomeQuest started as a vision to bring quality furniture to those who seek sophistication and style. Today, we’re proud to offer an exclusive collection that transforms homes into dream spaces.
-            </p>
-            
-            <h4>Customer Approach</h4>
-            <p class="about-text">
-                Your satisfaction is our top priority. From helping you select the perfect piece to ensuring timely delivery and set-up, we are here for you every step of the way.
-                We are committed to providing a seamless shopping experience, offering personalized recommendations and support to help you create the home of your dreams.
-            </p>
+    .contact-info {
+      background: rgb(47, 41, 34);
+      padding: 20px 20px 10px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
 
-            <h4>Mission Statement</h4>
-            <p class="about-text">
-                Our mission with HomeQuest is to help you transform your home with curated furniture and decor that perfectly fits your lifestyle. We source only the finest pieces that combine both beauty and practicality, ensuring your home feels both stylish and welcoming.
-            </p>
+    .contact-info h2 {
+      color: white;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
+    .contact-content {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-        </div>
-    </section>
+    .contact-text {
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 5px;
+    }
 
-    <!-- Contact Info Section -->
-    <section class="container my-5 contact-info">
-        <h2 class="text-center mb-4">Contact Info</h2>
+    .contact-text a {
+      text-decoration: none;
+      color: white;
+    }
 
-        <div class="contact-content">
-            <p class="contact-text"><strong>Email:</strong> homequest@gmail.com</p>
-            <p class="contact-text"><strong>Facebook:</strong> <a href="https://www.facebook.com/HomeQuest" target="_blank">HomeQuest</a></p>
-            <p class="contact-text"><strong>Instagram:</strong> <a href="https://www.instagram.com/HomeQuest" target="_blank">@HomeQuest</a></p>
-            <p class="contact-text"><strong>Phone:</strong>+995 595 64 46 05</p>
-            <p class="contact-text"><strong>Adress:</strong>Georgia, Tbilisi</p>
-        </div>
-    </section>
+    .contact-text a:hover {
+      text-decoration: none;
+    }
 
-    <!-- Footer -->
-    {% include 'Footer.html' %}
+    .about-content img {
+      float: right;
+      margin-right: 150px;
+      scale: 4;
+      margin-top: 30px;
+      max-width: 100px;
+    }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    .about-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+
+  <!-- Header Include -->
+  {% include 'Header.html' %}
+
+  <!-- About Us Section -->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">About HomeQuest</h2>
+
+    <div class="about-content">
+        <a href="/">
+            <img src="https://i.ibb.co/S7sQsVNW/homequest-logo.png" alt="homequest-logo" border="0" />
+          </a>
+      <h4>The Vision Behind HomeQuest</h4>
+      <p class="about-text">
+        At HomeQuest, we are passionate about creating spaces that resonate<br> with your lifestyle and personal taste.
+        Our vision is simple: to <br>transform your home into a sanctuary that mirrors your individuality.
+      </p>
+      
+
+      <h4>Personal Introduction</h4>
+      <p class="about-text">
+        Hi, I’m Mariam Koberidze, the founder of HomeQuest. I started this brand to offer beautiful, high-quality furniture and home decor that can transform any space into a comfortable and stylish retreat. At HomeQuest, I’ve carefully curated pieces that blend timeless elegance with modern design, making it easy to create a home you’ll love.
+      </p>
+
+      <h4>Our Story</h4>
+      <p class="about-text">
+        Founded with a passion for interior design and an eye for detail, HomeQuest started as a vision to bring quality furniture to those who seek sophistication and style. Today, we’re proud to offer an exclusive collection that transforms homes into dream spaces.
+      </p>
+
+      <h4>Customer Approach</h4>
+      <p class="about-text">
+        Your satisfaction is our top priority. From helping you select the perfect piece to ensuring timely delivery and set-up, we are here for you every step of the way. We are committed to providing a seamless shopping experience, offering personalized recommendations and support to help you create the home of your dreams.
+      </p>
+
+      <h4>Mission Statement</h4>
+      <p class="about-text">
+        Our mission with HomeQuest is to help you transform your home with curated furniture and decor that perfectly fits your lifestyle. We source only the finest pieces that combine both beauty and practicality, ensuring your home feels both stylish and welcoming.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Info Section -->
+  <section class="container my-5 contact-info">
+    <h2 class="text-center mb-4">Contact Info</h2>
+
+    <div class="contact-content">
+      <p class="contact-text"><strong>Email:</strong> homequest@gmail.com</p>
+      <p class="contact-text"><strong>Facebook:</strong> <a href="https://www.facebook.com/HomeQuest" target="_blank">HomeQuest</a></p>
+      <p class="contact-text"><strong>Instagram:</strong> <a href="https://www.instagram.com/HomeQuest" target="_blank">@HomeQuest</a></p>
+      <p class="contact-text"><strong>Phone:</strong> +995 595 64 46 05</p>
+      <p class="contact-text"><strong>Address:</strong> Georgia, Tbilisi</p>
+    </div>
+  </section>
+
+  <!-- Footer Include -->
+  {% include 'Footer.html' %}
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
