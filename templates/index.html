@@ -10,7 +10,6 @@
 
     <!-- site style, carousel and cards -->
     <style>
-
         body { 
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, #eae6de, #beb4a2);
@@ -20,13 +19,13 @@
         }
 
         .card-title {
-        font-weight: bold;
+            font-weight: bold;
         }
 
         .card-text {
             font-size: 1.1rem;
         }
-    
+
         .card-box {
             margin-top: 30px;
             display: flex;
@@ -35,30 +34,30 @@
             justify-content: center;
             padding: 20px;
             border-radius: 15px; 
-        
         }
 
         .btn-primary {
-        background-color: #333;
-        border-color: #333; 
-        color: white; 
-        display: block; 
-        margin: 0 auto; 
-        text-align: center;  
+            background-color: #333;
+            border-color: #333; 
+            color: white; 
+            display: block; 
+            margin: 0 auto; 
+            text-align: center;  
         }
 
         .btn-primary:hover {
             background-color: #565151; 
             border-color: #333;
         }
+
         .card-box .card {
             width: 18rem;
             background: rgb(225, 219, 213);
             color: #ede6e3;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.151);
+            box-shadow: 0 2px 5px rgba(67, 64, 61, 0.151);
             color: #333;
-      
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card-img-top {
@@ -71,49 +70,52 @@
             border-radius: 10px;
             outline: #ada69a solid 1px;
         }
-        
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
         .container h2 {
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 20px;
             color: #ede6e3;
         }
-        
+
         .carousel-img {
             height: 500px;
             object-fit: cover; 
         }
-    
+
         /* Contact Information */
         .container.my-5 {
             background: rgb(47, 41, 34);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* buttons styles */
         .btn-custom {
-
             color: white;
             border-radius: 5px;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
         }
+
         .btn-primary:focus, .btn-primary:active {
             background-color: #333 !important;
             border-color: #333 !important;
             box-shadow: none !important;
         }
 
-         /* line under carousel */
+        /* line under carousel */
         #heroCarousel {
             margin-bottom: 10px; 
             border-bottom: 1px solid #333; 
         }
-    
-        
     </style>
 
 {% include 'Header.html' %}
@@ -165,6 +167,7 @@
         <p class="text-white">Address: Georgia, Tbilisi</p>
     </section>
 </body>
+
     <!-- Footer -->
     {% include 'footer.html' %}
 
