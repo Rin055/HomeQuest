@@ -32,8 +32,8 @@ def about_us():
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    conn = sqlite3.connect('HomeQuest.db')
-    c = conn.cursor()
+    with sqlite3.connect('HomeQuest.db') as conn:
+        c = conn.cursor()
 
     if request.method == 'POST':
         name = request.form.get('name')
@@ -43,11 +43,9 @@ def contact():
         if not name or not mail or not question_text:
             return render_template('contact.html', error="All fields are required!")
 
-        # Insert the question into the database only if it doesn't already exist
         c.execute('''INSERT INTO contacts (name, mail, question) VALUES (?, ?, ?)''', (name, mail, question_text))
         conn.commit()
 
-        # Redirect to avoid re-submitting on page refresh
         return redirect(url_for('contact'))
 
     c.execute('SELECT * FROM contacts')
@@ -61,6 +59,56 @@ def contact():
 @app.route('/admin')
 def adminpage():
     return render_template('admin.html')
+
+
+@app.route('/admin/create_items', methods=['GET', 'POST'])
+def create_items():
+    conn = sqlite3.connect('HomeQuest.db')
+    c = conn.cursor()
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+
+        c.execute('''
+            INSERT INTO posts (title, description)
+            VALUES (?, ?)
+        ''', (title, description))
+        conn.commit()
+
+    c.execute("SELECT * FROM posts")
+    rows = c.fetchall()
+    conn.close()
+
+    posts = []
+    for row in rows:
+        posts.append({
+            'id': row[0],
+            'title': row[1],
+            'description': row[2],
+        })
+
+    return render_template('create_items.html', posts=posts)
+
+@app.route('/admin/delete_item/<int:id>')
+def delete_item(id):
+        conn = sqlite3.connect('HomeQuest.db')
+        c = conn.cursor()
+        c.execute('DELETE FROM posts WHERE id = ?', (id,))
+        conn.commit()
+    
+        c.execute("SELECT * FROM posts")
+        rows = c.fetchall()
+        conn.close()
+    
+        posts = []
+        for row in rows:
+            posts.append({
+                'id': row[0],
+                'title': row[1],
+                'description': row[3],
+            })
+    
+        return render_template('create_items.html', posts=posts)
 
 @app.route('/admin_contacts')
 def admin_contacts():
