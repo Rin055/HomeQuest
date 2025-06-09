@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/alk-sanet/css/alk-sanet.min.css">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
+    <title>HomeQuest</title>
+
+    <style>
+        body {
+            background: #f0eeec;
+            font-family: "poppins", sans-serif;
+            min-height: 100vh;
+        }
+        .main-box {
+            width: 86%;
+            margin-left: 7%;
+            margin-top: 2%;
+        }
+        .main-title {
+            color: #5f544b;
+            font-weight: bold;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.7em;
+        }
+        .section-title {
+            color: #6b655c;
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 0.5em;
+        }
+        .form-group label {
+            color: #504b46;
+            font-weight: 500;
+            font-size: 1.08rem;
+            letter-spacing: 0.2px;
+        }
+        .table.main-box th, .table.main-box td {
+            border-color: #b1a999;
+            border-width: 1.5px;
+        }
+        .table.main-box {
+            border-radius: 5px;
+            max-width: 87%;
+            margin: 0 auto;
+            overflow: hidden;
+            border-collapse: separate;
+            border-spacing: 0;
+            box-shadow: 0 2px 16px 0 #e0dbd2;
+            border: 2px solid #b1a999;
+        }
+        .table.main-box thead th {
+            background: #e3ded6;
+            color: #504b46;
+            font-weight: 600;
+            border-bottom: 2.5px solid #bcb4a5;
+            font-size: 1.08rem;
+            letter-spacing: 0.2px;
+        }
+        .table.main-box tbody tr {
+            background: #f8f7f5;
+            transition: background 0.2s;
+        }
+        .table.main-box tbody tr:hover {
+            background: #edeae5;
+        }
+        .btn-custom-brown {
+            background-color: #777264;
+            color: white;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-custom-brown:hover,
+        .btn-custom-brown:focus {
+            background-color: #b1a999;
+            color: #ffffff;
+            box-shadow: 0 0 0 0.2rem #b1a99955;
+        }
+        .form-control:focus {
+            border-color: #b1a999;
+            box-shadow: 0 0 0 0.2rem #b1a99933;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+{% include 'admin_header.html' %}
+
+<div class="main-box">
+    <h3 class="main-title">Add Items</h3>
+    <form action="{{ url_for('create_items') }}" method="POST">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="title"
+                   placeholder="Write item title" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput2">Short description</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" name="short_description"
+                   placeholder="Write item short description" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"
+                      placeholder="Write item description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="publisher">Publisher</label>
+            <textarea class="form-control" id="exampleFormControlTextarea2" name="publisher" rows="3"
+                      placeholder="Write publishers name" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="photo_url">Image</label>
+            <input type="text" class="form-control" id="photo_url" name="photo_url" placeholder="Enter image link">
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="Enter price" required>
+        </div>
+        <button type="submit" class="btn btn-custom-brown">Add item</button>
+    </form>
+</div>
+
+<br>
+<div class="main-box">
+    <h3 class="section-title">Published Items</h3>
+</div>
+
+<table class="table main-box" style="width:100%;">
+    <thead>
+    <tr style="background: #e3ded6;">
+        <th scope="col" style="width:5%;">ID</th>
+        <th scope="col" style="width:15%;">Title</th>
+        <th scope="col" style="width:20%;">Short description</th>
+        <th scope="col" style="width:35%;">Description</th>
+        <th scope="col" style="width:15%;">Publisher</th>
+        <th scope="col" style="width:10%;">Price</th>
+        <th scope="col" style="width:5%;"></th>
+        <th scope="col" style="width:5%;"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {%for post in posts%}
+    <tr>
+        <th scope="row">{{post['id']}}</th>
+        <td>{{post['title']}}</td>
+        <td>{{post['short_description']}}</td>
+        <td>{{post['description'][:200]}}</td>
+        <td>{{post['publisher']}}</td>
+        <td>{{ post.price }}</td>
+        <td>
+            <a href="{{ url_for('delete_item', id=post['id']) }}" onclick="return confirm('Are you sure you want to delete this item?');" style="padding:0; border:none; background:none;">
+                <img src="https://i.ibb.co/nNQWkZW4/waste-bin-flat-greyscale-icon-vector-removebg-preview.png" alt="Delete" style="width:28px; margin-bottom:2px;"/>
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('update_item', id=post['id']) }}">
+                <img width="20px" src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg" alt="delete">
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div style="height: 100px;"></div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,116 +1,119 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
+from datetime import timedelta
 
 app = Flask(__name__)
-
-items = [
-    {'title': 'Elegant Design',
-     'description': 'Discover our elegant furniture selection, thoughtfully made to add warmth, timeless style, and a touch of sophistication to every corner of your home',
-     'photo_url': 'https://img.pikbest.com/wp/202345/modern-living-room-decor-in-3d-with-black-sofa-and-plant-decorations-home-interior-render_9615670.jpg!w700wp'},
-    {'title': 'Luxury Style',
-     'description': 'Indulge in luxury with our top furniture pieces, crafted for both exceptional comfort and exquisite design to elevate your living space',
-     'photo_url': 'https://c4.wallpaperflare.com/wallpaper/850/684/35/interior-design-style-design-home-wallpaper-preview.jpg'},
-    {'title': 'Best Seller',
-     'description': 'These popular items are cherished for their timeless beauty and excellent value, perfect for enhancing any home or space',
-     'photo_url': 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'title': 'Sales',
-     'description': 'Take advantage of our current sales and enjoy fantastic discounts on the furniture pieces you’ve been eyeing for your home',
-     'photo_url': 'https://images.pexels.com/photos/90319/pexels-photo-90319.jpeg?auto=compress&cs=tinysrgb&w=600'}
-]
+app.secret_key = 'your_secret_key_here'
+app.permanent_session_lifetime = timedelta(minutes=10)
 
 @app.route('/')
 def index():
+    items = []
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts ORDER BY id DESC LIMIT 8")
+    rows = c.fetchall()
+
+    for row in rows:
+        items.append({
+            'id': row['id'],
+            'title': row['title'],
+            'description': row['description'],
+            'publisher': row['publisher'],
+            'short_description': row['short_description'],
+            'photo_url': row['photo_url'],
+            'price': row['price']
+        })
+
     return render_template('index.html', items=items)
 
-@app.route('/shop')
-def shop():
-    return render_template('shop.html')
 
-@app.route('/aboutus')
+@app.route('/add_question', methods=['POST'])
+def add_question():
+    name = request.form.get('name')
+    mail = request.form.get('mail')
+    question = request.form.get('question')
+
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.execute('''
+                 INSERT INTO contacts (name, email, question)
+                 VALUES (?, ?, ?)
+                 ''', (name, mail, question))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('contact'))
+
+@app.route('/about_us')
 def about_us():
     return render_template('about_us.html')
 
-@app.route('/contact', methods=['GET', 'POST'])
+
+@app.route('/contact')
 def contact():
-    with sqlite3.connect('HomeQuest.db') as conn:
-        c = conn.cursor()
-
-    if request.method == 'POST':
-        name = request.form.get('name')
-        mail = request.form.get('mail')
-        question_text = request.form.get('question')
-
-        if not name or not mail or not question_text:
-            return render_template('contact.html', error="All fields are required!")
-
-        c.execute('''INSERT INTO contacts (name, mail, question) VALUES (?, ?, ?)''', (name, mail, question_text))
-        conn.commit()
-
-        return redirect(url_for('contact'))
-
+    conn = sqlite3.connect('HomeQuest.db')
+    c = conn.cursor()
     c.execute('SELECT * FROM contacts')
     rows = c.fetchall()
     conn.close()
-
-    questions = [{'id': row[0], 'name': row[1], 'mail': row[2], 'question': row[3]} for row in rows]
-
+    questions = []
+    for row in rows:
+        questions.append({'id': row[0], 'name': row[1], 'email': row[2], 'question': row[3]})
     return render_template('contact.html', questions=questions)
 
-@app.route('/admin')
-def adminpage():
-    return render_template('admin.html')
-
-
-@app.route('/admin/create_items', methods=['GET', 'POST'])
-def create_items():
+@app.route('/posts')
+def posts():
+    main_posts = []
     conn = sqlite3.connect('HomeQuest.db')
+    conn.row_factory = sqlite3.Row
     c = conn.cursor()
-    if request.method == 'POST':
-        title = request.form.get('title')
-        description = request.form.get('description')
-
-        c.execute('''
-            INSERT INTO posts (title, description)
-            VALUES (?, ?)
-        ''', (title, description))
-        conn.commit()
-
-    c.execute("SELECT * FROM posts")
+    search = request.args.get('search-value')
+    if search:
+        c.execute("SELECT * FROM posts WHERE title LIKE ?", ('%' + search + '%',))
+    else:
+        c.execute("SELECT * FROM posts")
     rows = c.fetchall()
-    conn.close()
-
-    posts = []
     for row in rows:
-        posts.append({
-            'id': row[0],
-            'title': row[1],
-            'description': row[2],
-        })
+        main_posts.append(
+            {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price']}
+        )
+    return render_template('posts.html', posts = main_posts)
 
-    return render_template('create_items.html', posts=posts)
 
-@app.route('/admin/delete_item/<int:id>')
-def delete_item(id):
+@app.route('/sign_in', methods=['GET', 'POST'])
+def sign_in():
+    if request.method == 'POST':
+        user_email = request.form.get('email')
+        user_password = request.form.get('password')
         conn = sqlite3.connect('HomeQuest.db')
         c = conn.cursor()
-        c.execute('DELETE FROM posts WHERE id = ?', (id,))
-        conn.commit()
-    
-        c.execute("SELECT * FROM posts")
+        c.execute("SELECT email, username FROM users WHERE email = ?", (user_email,))
         rows = c.fetchall()
+        if rows:
+            user_name = rows[0][1]
+            session.permanent = True
+            session['user'] = user_email
+            session['user_name'] = user_name
+            return redirect(url_for('admin'))
         conn.close()
-    
-        posts = []
-        for row in rows:
-            posts.append({
-                'id': row[0],
-                'title': row[1],
-                'description': row[3],
-            })
-    
-        return render_template('create_items.html', posts=posts)
+    return render_template('sign_in.html')
 
-@app.route('/admin_contacts')
+@app.route('/logout')
+def logout():
+    del session['user']
+    del session['user_name']
+    return redirect(url_for('sign_in'))
+
+@app.route('/admin')
+def admin():
+    if 'user' in session:
+        return render_template('admin.html', user=session['user_name'])
+    else:
+        return redirect(url_for('sign_in'))
+
+
+@app.route('/admin/admin_contacts')
 def admin_contacts():
     conn = sqlite3.connect('HomeQuest.db')
     c = conn.cursor()
@@ -118,9 +121,127 @@ def admin_contacts():
     rows = c.fetchall()
     conn.close()
 
-    questions = [{'id': row[0], 'name': row[1], 'mail': row[2], 'question': row[3]} for row in rows]
+    questions = []
+    for row in rows:
+        questions.append({'id': row[0], 'name': row[1], 'email': row[2], 'question': row[3]})
 
     return render_template('admin_contacts.html', questions=questions)
+
+
+@app.route('/admin/create_items', methods=['GET', 'POST'])
+def create_items():
+    conn = sqlite3.connect('HomeQuest.db')
+    c = conn.cursor()
+    c.execute("PRAGMA table_info(posts)")
+    columns = [info[1] for info in c.fetchall()]
+    if 'short_description' not in columns:
+        c.execute("ALTER TABLE posts ADD COLUMN short_description TEXT")
+        conn.commit()
+    if 'photo_url' not in columns:
+        c.execute("ALTER TABLE posts ADD COLUMN photo_url TEXT")
+        conn.commit()
+    # Add this block to ensure price column exists
+    if 'price' not in columns:
+        c.execute("ALTER TABLE posts ADD COLUMN price TEXT")
+        conn.commit()
+    if request.method == 'POST':
+        title = request.form.get('title')
+        short_description = request.form.get('short_description')
+        description = request.form.get('description')
+        publisher = request.form.get('publisher')
+        photo_url = request.form.get('photo_url')
+        price = request.form.get('price')
+
+        conn.execute('''
+                     INSERT INTO posts (title, short_description, description, publisher, photo_url, price)
+                     VALUES (?, ?, ?, ?, ?, ?)
+                     ''', (title, short_description, description, publisher, photo_url, price))
+        conn.commit()
+
+    posts = []
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts")
+    rows = c.fetchall()
+    conn.close()
+    for row in rows:
+        posts.append({
+            'id': row['id'],
+            'title': row['title'],
+            'description': row['description'],
+            'publisher': row['publisher'],
+            'short_description': row['short_description'],
+            'photo_url': row['photo_url'],
+            'price': row['price']
+        })
+    return render_template('create_items.html', posts=posts)
+
+@app.route('/admin/delete_item/<int:id>')
+def delete_item(id):
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.execute('''
+        DELETE FROM posts WHERE id = ?
+    ''', (id,))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('create_items'))
+
+@app.route('/admin/update_item/<int:id>', methods=['GET', 'POST'])
+def update_item(id):
+    posts = []
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.row_factory = sqlite3.Row
+
+    if request.method == 'GET':
+        c = conn.cursor()
+        c.execute(''' SELECT * FROM posts WHERE id = ? ''', (id,))
+        rows = c.fetchall()
+        conn.close()
+        for row in rows:
+            posts.append(
+                {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price']}
+            )
+        return render_template('update_item.html', post = posts[0])
+    else:
+        title = request.form.get('title')
+        short_description = request.form.get('short_description')
+        description = request.form.get('description')
+        publisher = request.form.get('publisher')
+        photo_url = request.form.get('photo_url')
+        price = request.form.get('price')
+
+        conn.execute(''' UPDATE posts SET title = ?, short_description = ?, description = ?, publisher = ?, photo_url = ?, price = ? WHERE id = ? ''',
+                     (title, short_description, description, publisher, photo_url, price, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('create_items'))
+
+@app.route('/posts/<int:id>')
+def show_post(id):
+    post = []
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute(''' SELECT * FROM posts WHERE id = ? ''', (id,))
+    rows = c.fetchall()
+    for row in rows:
+        post.append(
+            {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price']}
+        )
+    return render_template('show_post.html', post = post[0])
+
+@app.route('/admin/delete_question/<int:id>')
+def delete_question(id):
+    conn = sqlite3.connect('HomeQuest.db')
+    conn.execute('DELETE FROM contacts WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('admin_contacts'))
+
+@app.route('/admins')
+def admins():
+    return render_template('admins.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

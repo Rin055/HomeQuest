@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/alk-sanet/css/alk-sanet.min.css">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
+    <title>HomeQuest</title>
+
+    <style>
+        body {
+            font-family: "ALK Sanet", sans-serif;
+            background: linear-gradient(to right, #eae6de, #d1c9bb);
+        }
+        .main-box {
+            width: 86%;
+            margin-left: 7%;
+            margin-top: 2%
+        }
+        .card-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+        .card-box .card {
+            background: #f8f7f5;
+            color: #504b46;
+            border: 1.5px solid #b1a999;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #e0dbd2;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            overflow: hidden;
+        }
+        .card-box .card:hover {
+            box-shadow: 0 4px 24px #b1a99955;
+            border-color: #b1a999;
+            transform: translateY(-4px) scale(1.03);
+        }
+        .card-img-top {
+            height: 170px;
+            object-fit: cover;
+            border-radius: 0;
+        }
+        .card-placeholder {
+            height: 170px;
+            background: #edeae5;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        .card-title {
+            color: #5f544b;
+            font-weight: 600;
+            font-size: 1.18rem;
+        }
+        .card-text {
+            color: #6b655c;
+            font-size: 1.01rem;
+        }
+        .btn-brown {
+            background-color: #3e3d39 !important;
+            border-color: #3e3d39 !important;
+            color: #fff !important;
+            font-weight: 500;
+            transition: background 0.2s, border 0.2s;
+            border-radius: 6px;
+            padding: 6px 18px;
+            font-size: 1rem;
+            box-shadow: none !important;
+        }
+        .btn-brown:focus, .btn-brown:active:focus, .btn-brown.active:focus, .show>.btn-brown.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.20rem #b1a999aa !important;
+            outline: none;
+        }
+        .btn-brown:hover, .btn-brown:focus {
+            background-color: #6b655c !important;
+            border-color: #6b655c !important;
+            color: #fff !important;
+        }
+        .text-left {
+            padding: 1%;
+            margin-left: 110px;
+        }
+    </style>
+</head>
+<body>
+{% include "header.html" %}
+
+<h2 class="text-left my-4">All Items</h2>
+
+<div class="main-box card-box d-flex flex-wrap gap-3">
+    {% for post in posts %}
+    <div class="card" style="width: 18rem;">
+        {% if post['photo_url'] %}
+        <img class="card-img-top"
+             src="{{ post['photo_url'] }}"
+             alt="Card image cap">
+        {% else %}
+        <div class="card-placeholder"></div>
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ post['title'] }}</h5>
+            <p class="card-text mb-1">{{ post['short_description'] }}</p>
+            <p class="card-text mb-1"><span style="color:#b1a999;">Publisher:</span> {{ post['publisher'] }}</p>
+            <p class="card-text mb-1"><strong>Price:</strong> {{ post.price }}</p>
+            <div class="flex-grow-1"></div>
+            <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-brown mt-2">Shop Now</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% include 'footer.html' %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

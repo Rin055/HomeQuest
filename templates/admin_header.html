@@ -1,0 +1,54 @@
+<style>
+
+    .nav-item-exit {
+        margin-left: 365%;
+    }
+    .navbar {
+        height: 70px;
+        background-color: #3e3d39;
+        border-bottom: none;
+        box-shadow: none;
+    }
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+        color: #f5f5f5;
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+        text-decoration: none;
+        box-shadow: none;
+    }
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover {
+        color: #bcb4aa;
+        text-decoration: none;
+        box-shadow: none;
+    }
+</style>
+<nav class="navbar navbar-expand-lg" style="border-bottom:none;box-shadow:none;">
+    <a class="navbar-brand d-flex align-items-center" href="/admin">
+        <img src="https://i.ibb.co/B2f5v0RB/transperent-logo.png" alt="Logo" style="height:36px; margin-right:10px;">
+        Admin
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('create_items')}}">Items <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('admins')}}">Admins</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('admin_contacts')}}">Contact</a>
+            </li>
+            <li class="nav-item-exit">
+                <a class="nav-link" href="/logout">Exit</a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,138 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/alk-sanet/css/alk-sanet.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
     <title>HomeQuest</title>
-</head>
 
-<body>
-
-    <!-- site style, carousel and cards -->
     <style>
-        body { 
+        body {   
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, #eae6de, #beb4a2);
             color: #333;
             margin: 0;
             padding: 0;
         }
-
-        .card-title {
-            font-weight: bold;
+        .main-box {
+            width: 86%;
+            margin-left: 7%;
+            margin-top: 5%;
         }
-
-        .card-text {
-            font-size: 1.1rem;
+        .main-box strong {
+            font-size: 2.2rem;
         }
-
         .card-box {
-            margin-top: 30px;
+            margin-top: 20px;
+            margin-bottom: 80px;
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
-            justify-content: center;
-            padding: 20px;
-            border-radius: 15px; 
         }
-
-        .btn-primary {
-            background-color: #333;
-            border-color: #333; 
-            color: white; 
-            display: block; 
-            margin: 0 auto; 
-            text-align: center;  
-        }
-
-        .btn-primary:hover {
-            background-color: #565151; 
-            border-color: #333;
-        }
-
         .card-box .card {
-            width: 18rem;
-            background: rgb(225, 219, 213);
-            color: #ede6e3;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(67, 64, 61, 0.151);
-            color: #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #f8f7f5;
+            color: #504b46;
+            border: 1.5px solid #b1a999;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px #e0dbd2;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            overflow: hidden;
         }
-
+        .card-box .card:hover {
+            box-shadow: 0 4px 24px #b1a99955;
+            border-color: #b1a999;
+            transform: translateY(-4px) scale(1.03);
+        }
         .card-img-top {
-            height: 200px;
-            object-fit: cover; 
-            border-radius: 10px 10px 0 0;
+            height: 170px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
-
-        .card {
-            border-radius: 10px;
-            outline: #ada69a solid 1px;
+        .card-title {
+            color: #5f544b;
+            font-weight: 600;
+            font-size: 1.13rem;
         }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .card-text {
+            color: #6b655c;
+            font-size: 0.98rem;
         }
-
-        .container h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #ede6e3;
-        }
-
-        .carousel-img {
-            height: 500px;
-            object-fit: cover; 
-        }
-
-        /* Contact Information */
-        .container.my-5 {
-            background: rgb(47, 41, 34);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* buttons styles */
-        .btn-custom {
-            color: white;
+        .btn-brown {
+            background-color: #3e3d39 !important;
+            border-color: #3e3d39 !important;
+            color: #fff !important;
+            font-weight: 500;
+            transition: background 0.2s, border 0.2s;
             border-radius: 5px;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .btn-primary:focus, .btn-primary:active {
-            background-color: #333 !important;
-            border-color: #333 !important;
+            padding: 6px 18px;
+            font-size: 1rem;
             box-shadow: none !important;
         }
-
-        /* line under carousel */
+        .btn-brown:focus, .btn-brown:active:focus, .btn-brown.active:focus, .show>.btn-brown.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.20rem #b1a999aa !important;
+            outline: none; 
+        }
+        .btn-brown:hover, .btn-brown:focus {
+            background-color: #6b655c !important;
+            border-color: #6b655c !important;
+            color: #fff !important;
+        }
+        .carousel-img {
+            height: 500px;
+            object-fit: cover;
+        }
         #heroCarousel {
             margin-bottom: 10px; 
-            border-bottom: 1px solid #333; 
+            border-bottom: 1px solid #6b6b6b; 
+        }
+        .intro-paragraph {
+            width: 80%;
+            margin: 32px auto 36px auto;
+            color: #5f544b;
+            font-size: 1.22rem;
+            background: #edeae5;
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 2px 8px #e0dbd2;
+            padding: 28px 36px 22px 36px;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.01em;
         }
     </style>
+</head>
+<body>
+{% include "header.html" %}
 
-{% include 'Header.html' %}
-
-    <!--Carousel-->  
-    <header id="heroCarousel" class="carousel slide" data-ride="carousel">
+  <header id="heroCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://i.etsystatic.com/48967239/r/il/7fa147/5895476087/il_fullxfull.5895476087_fkvp.jpg" class="d-block w-100 carousel-img" alt="Main Banner">
             </div>
             <div class="carousel-item">
-                <img src="https://plus.unsplash.com/premium_photo-1670360414483-64e6d9ba9038?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG9tZSUyMGRlY29yfGVufDB8fDB8fHww" class="d-block w-100 carousel-img" alt="Second Banner">
+                <img src="https://th.bing.com/th/id/R.5a1d6f12694286dc7f5ab4c9cfa6b323?rik=ah1lDOO21mrO2A&pid=ImgRaw&r=0" class="d-block w-100 carousel-img" alt="Second Banner">
             </div>
             <div class="carousel-item">
-                <img src="https://www.asean-sourcing.com/wp-content/uploads/2022/02/spacejoy-Kh4tedFdHz4-unsplash-1080x675.jpg" class="d-block w-100 carousel-img" alt="Third Banner">
+                <img src="https://cdn.suwalls.com/wallpapers/photography/cozy-living-room-48310-1920x1080.jpg" class="d-block w-100 carousel-img" alt="Third Banner">
+            </div>
+            <div class="carousel-item">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b71bc88575925.5ddac6439163a.jpg" class="d-block w-100 carousel-img" alt="Fourth Banner">
+            </div>
+         
             </div>
         </div>
         <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
@@ -145,34 +137,42 @@
         </a>
     </header>
 
-    <!-- Furniture Sections -->
-    <div class="main-box card-box">
-        {% for item in items%}
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top"
-                 src="{{item['photo_url']}}"
-                 alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{item['title']}}</h5>
-                <p class="card-text">{{item['description']}}</p>
-                <a href="#" class="btn btn-primary">Shop now</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<div class="intro-paragraph">
+    Welcome to <b>HomeQuest</b>! Explore our handpicked collection of unique home decor and lifestyle items, curated to bring comfort and style to your living space.<br>
+    <span style="color:#9e9788;">Find inspiration, discover new trends, and make your home truly yours.</span>
+</div>
 
-    <!-- Contact Information -->
-    <section class="container my-5 text-center">
-        <h2>Contact Us</h2>
-        <p class="text-white">Email: homequest@gmail.com</p>
-        <p class="text-white">Phone: +995 595 64 46 05</p>
-        <p class="text-white">Address: Georgia, Tbilisi</p>
-    </section>
-</body>
+<div class="main-box">
+    <strong style="color:#54524d;">Recent Posts:</strong>
+</div>
+
+<div class="main-box card-box d-flex flex-wrap gap-3">
+    {% for item in items %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top"
+             src="{{item['photo_url']}}"
+             alt="Card image cap">
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ item['title'] }}</h5>
+            <p class="card-text mb-1">{{ item['short_description'] }}</p>
+            <p class="card-text mb-1"><span style="color:#b1a999;">Publisher:</span> {{ item['publisher'] }}</p>
+            <p class="card-text mb-1"><strong><span style="font-size: 0.8em;">Price:</span></strong> {{ item.price }}</p>
+            <div class="flex-grow-1"></div>
+            <a href="{{ url_for('show_post', id=item['id']) }}" class="btn btn-brown mt-2">Shop Now</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% include 'footer.html' %}
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
 </html>
