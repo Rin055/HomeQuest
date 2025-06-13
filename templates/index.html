@@ -6,18 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/alk-sanet/css/alk-sanet.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
     <title>HomeQuest</title>
-
     <style>
         body {   
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, #eae6de, #beb4a2);
             color: #333;
-            margin: 0;
-            padding: 0;
         }
         .main-box {
             width: 86%;
@@ -38,30 +35,45 @@
             background: #f8f7f5;
             color: #504b46;
             border: 1.5px solid #b1a999;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px #e0dbd2;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px #e0dbd2;
             transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
             overflow: hidden;
+            position: relative;
         }
         .card-box .card:hover {
-            box-shadow: 0 4px 24px #b1a99955;
-            border-color: #b1a999;
-            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 32px #b1a99988;
+            border-color: #918d74;
+            transform: translateY(-6px) scale(1.04);
         }
         .card-img-top {
             height: 170px;
             object-fit: cover;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
         }
         .card-title {
             color: #5f544b;
-            font-weight: 600;
-            font-size: 1.13rem;
+            font-weight: 700;
+            font-size: 1.18rem;
+            margin-bottom: 0.3rem;
         }
         .card-text {
             color: #6b655c;
             font-size: 0.98rem;
+        }
+        .badge-new {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #b1a999;
+            color: #fff;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            box-shadow: 0 2px 8px #b1a99944;
         }
         .btn-brown {
             background-color: #3e3d39 !important;
@@ -105,6 +117,61 @@
             font-weight: 500;
             letter-spacing: 0.01em;
         }
+        .features-section {
+            width: 80%;
+            margin: 40px auto 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .feature-box {
+            flex: 1 1 220px;
+            background: #f8f7f5;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #e0dbd2;
+            padding: 28px 18px 22px 18px;
+            text-align: center;
+            margin-bottom: 18px;
+            border: 1.5px solid #b1a999;
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #b1a999;
+        }
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #504b46;
+        }
+        .feature-desc {
+            color: #6b655c;
+            font-size: 0.97rem;
+        }
+        @media (max-width: 991px) {
+            .features-section, .intro-paragraph, .main-box {
+                width: 97%;
+                margin-left: 1.5%;
+            }
+            .features-section {
+                flex-direction: column;
+                gap: 18px;
+            }
+            .feature-box {
+                max-width: 100%;
+            }
+        }
+        .main-box.card-box {
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            width: 86%;
+            gap: 25px;
+            display: flex;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -124,8 +191,6 @@
             <div class="carousel-item">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b71bc88575925.5ddac6439163a.jpg" class="d-block w-100 carousel-img" alt="Fourth Banner">
             </div>
-         
-            </div>
         </div>
         <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -142,6 +207,29 @@
     <span style="color:#9e9788;">Find inspiration, discover new trends, and make your home truly yours.</span>
 </div>
 
+<div class="features-section">
+    <div class="feature-box">
+        <div class="feature-icon">🏠</div>
+        <div class="feature-title">Unique Selection</div>
+        <div class="feature-desc">Discover exclusive home decor and lifestyle items you won't find anywhere else.</div>
+    </div>
+    <div class="feature-box">
+        <div class="feature-icon">🚚</div>
+        <div class="feature-title">Fast Delivery</div>
+        <div class="feature-desc">Enjoy quick and reliable shipping to your doorstep, every time you order.</div>
+    </div>
+    <div class="feature-box">
+        <div class="feature-icon">💬</div>
+        <div class="feature-title">Customer Support</div>
+        <div class="feature-desc">Our team is here to help you with any questions or concerns, 24/7.</div>
+    </div>
+    <div class="feature-box">
+        <div class="feature-icon">🌱</div>
+        <div class="feature-title">Eco-Friendly</div>
+        <div class="feature-desc">We care about the planet and offer sustainable, eco-conscious products.</div>
+    </div>
+</div>
+
 <div class="main-box">
     <strong style="color:#54524d;">Recent Posts:</strong>
 </div>
@@ -149,6 +237,9 @@
 <div class="main-box card-box d-flex flex-wrap gap-3">
     {% for item in items %}
     <div class="card" style="width: 18rem;">
+        {% if loop.index <= 2 %}
+        <span class="badge-new">New</span>
+        {% endif %}
         <img class="card-img-top"
              src="{{item['photo_url']}}"
              alt="Card image cap">

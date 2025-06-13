@@ -6,26 +6,48 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/alk-sanet/css/alk-sanet.min.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
     <title>HomeQuest</title>
-
     <style>
+        body {
+            height: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        .footer-wrapper {
+            flex-shrink: 0;
+        }
         body {
             font-family: "ALK Sanet", sans-serif;
             background: linear-gradient(to right, #eae6de, #d1c9bb);
+            color: #504b46;
         }
         .main-box {
             width: 86%;
             margin-left: 7%;
-            margin-top: 2%
+            margin-top: 2%;
+        }
+        .main-box.card-box {
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            width: 86%;
+            gap: 25px;
+            display: flex;
+            flex-wrap: wrap;
         }
         .card-box {
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
             margin-bottom: 80px;
+            justify-content: center;
         }
         .card-box .card {
             background: #f8f7f5;
@@ -35,6 +57,11 @@
             box-shadow: 0 2px 12px #e0dbd2;
             transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
             overflow: hidden;
+            position: relative;
+            width: 18rem;
+            min-height: 370px;
+            display: flex;
+            flex-direction: column;
         }
         .card-box .card:hover {
             box-shadow: 0 4px 24px #b1a99955;
@@ -51,6 +78,11 @@
             background: #edeae5;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b1a999;
+            font-size: 1.2rem;
         }
         .card-title {
             color: #5f544b;
@@ -85,45 +117,85 @@
             padding: 1%;
             margin-left: 110px;
         }
+        .top-banner {
+            width: 100%;
+            background: #edeae5;
+            border-bottom: 1.5px solid #b1a999;
+            box-shadow: 0 2px 8px #e0dbd2;
+            padding: 18px 0 10px 0;
+            margin-bottom: 14px;
+        }
+        .top-banner-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .top-banner-title {
+            color: #5f544b;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .top-banner-desc {
+            color: #9e9788;
+            font-size: 1rem;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 {% include "header.html" %}
 
-<h2 class="text-left my-4">All Items</h2>
-
-<div class="main-box card-box d-flex flex-wrap gap-3">
-    {% for post in posts %}
-    <div class="card" style="width: 18rem;">
-        {% if post['photo_url'] %}
-        <img class="card-img-top"
-             src="{{ post['photo_url'] }}"
-             alt="Card image cap">
-        {% else %}
-        <div class="card-placeholder"></div>
-        {% endif %}
-        <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ post['title'] }}</h5>
-            <p class="card-text mb-1">{{ post['short_description'] }}</p>
-            <p class="card-text mb-1"><span style="color:#b1a999;">Publisher:</span> {{ post['publisher'] }}</p>
-            <p class="card-text mb-1"><strong>Price:</strong> {{ post.price }}</p>
-            <div class="flex-grow-1"></div>
-            <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-brown mt-2">Shop Now</a>
-        </div>
+<div class="content-wrapper">
+    <!-- Add section filter bar -->
+    <div class="main-box" style="margin-bottom: 18px;">
+        <form class="filter-bar" method="get" action="{{ url_for('posts') }}" style="display:flex; align-items:center; gap:14px; background:#f8f7f5; border-radius:12px; box-shadow:0 2px 8px #e0dbd2; padding:10px 18px; width:70%; margin:0 auto 18px auto;">
+            <label for="section" style="margin-bottom:0; color:#504b46; font-weight:500;">Section:</label>
+            <select name="section" id="section" onchange="this.form.submit()" style="border-radius:6px; border:1px solid #b1a999; padding:6px 12px; font-size:1rem;">
+                {% for sec in sections %}
+                    <option value="{{ sec }}" {% if selected_section == sec %}selected{% endif %}>{{ sec }}</option>
+                {% endfor %}
+            </select>
+        </form>
     </div>
-    {% endfor %}
+
+    <h2 class="text-left my-4">All Items</h2>
+
+    <div class="main-box card-box d-flex flex-wrap gap-3">
+        {% if posts|length == 0 %}
+            <div class="no-items" style="width:100%;">No items found. Try a different search or check back later!</div>
+        {% endif %}
+        {% for post in posts %}
+        <div class="card" style="width: 18rem;">
+            {% if post['photo_url'] %}
+            <img class="card-img-top"
+                 src="{{ post['photo_url'] }}"
+                 alt="Card image cap">
+            {% else %}
+            <div class="card-placeholder">No Image</div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ post['title'] }}</h5>
+                <p class="card-text mb-1">{{ post['short_description'] }}</p>
+                <p class="card-text mb-1"><span style="color:#b1a999;">Publisher:</span> {{ post['publisher'] }}</p>
+                <p class="card-text mb-1"><strong>Price:</strong> {{ post.price }}</p>
+                <div class="flex-grow-1"></div>
+                <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-brown mt-2">Shop Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
-
-{% include 'footer.html' %}
+<div class="footer-wrapper">
+    {% include 'footer.html' %}
+</div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
 </html>

@@ -69,16 +69,25 @@ def posts():
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
     search = request.args.get('search-value')
-    if search:
+    section = request.args.get('section', 'All')
+    sections = [
+        "All", "Lights", "Bedroom Items", "Kitchen Items", "Living Room", "Bathroom","Decorations",   "Office", "Outdoor", "Other"
+    ]
+    if search and section and section != "All":
+        c.execute("SELECT * FROM posts WHERE title LIKE ? AND section = ?", ('%' + search + '%', section))
+    elif search:
         c.execute("SELECT * FROM posts WHERE title LIKE ?", ('%' + search + '%',))
+    elif section and section != "All":
+        c.execute("SELECT * FROM posts WHERE section = ?", (section,))
     else:
         c.execute("SELECT * FROM posts")
     rows = c.fetchall()
     for row in rows:
         main_posts.append(
-            {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price']}
+            {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price'], 'section': row['section']}
         )
-    return render_template('posts.html', posts = main_posts)
+    conn.close()
+    return render_template('posts.html', posts=main_posts, sections=sections, selected_section=section)
 
 
 @app.route('/sign_in', methods=['GET', 'POST'])
@@ -134,16 +143,11 @@ def create_items():
     c = conn.cursor()
     c.execute("PRAGMA table_info(posts)")
     columns = [info[1] for info in c.fetchall()]
-    if 'short_description' not in columns:
-        c.execute("ALTER TABLE posts ADD COLUMN short_description TEXT")
-        conn.commit()
-    if 'photo_url' not in columns:
-        c.execute("ALTER TABLE posts ADD COLUMN photo_url TEXT")
-        conn.commit()
-    # Add this block to ensure price column exists
-    if 'price' not in columns:
-        c.execute("ALTER TABLE posts ADD COLUMN price TEXT")
-        conn.commit()
+
+    # Update sections to match all choices you want
+    sections = [
+        "All", "Lights", "Bedroom Items", "Kitchen Items", "Decorations", "Living Room", "Bathroom", "Office", "Outdoor", "Other"
+    ]
     if request.method == 'POST':
         title = request.form.get('title')
         short_description = request.form.get('short_description')
@@ -151,11 +155,12 @@ def create_items():
         publisher = request.form.get('publisher')
         photo_url = request.form.get('photo_url')
         price = request.form.get('price')
+        section = request.form.get('section')
 
         conn.execute('''
-                     INSERT INTO posts (title, short_description, description, publisher, photo_url, price)
-                     VALUES (?, ?, ?, ?, ?, ?)
-                     ''', (title, short_description, description, publisher, photo_url, price))
+                     INSERT INTO posts (title, short_description, description, publisher, photo_url, price, section)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)
+                     ''', (title, short_description, description, publisher, photo_url, price, section))
         conn.commit()
 
     posts = []
@@ -172,9 +177,10 @@ def create_items():
             'publisher': row['publisher'],
             'short_description': row['short_description'],
             'photo_url': row['photo_url'],
-            'price': row['price']
+            'price': row['price'],
+            'section': row['section']
         })
-    return render_template('create_items.html', posts=posts)
+    return render_template('create_items.html', posts=posts, sections=sections)
 
 @app.route('/admin/delete_item/<int:id>')
 def delete_item(id):
@@ -192,7 +198,10 @@ def update_item(id):
     posts = []
     conn = sqlite3.connect('HomeQuest.db')
     conn.row_factory = sqlite3.Row
-
+    # Define available sections
+    sections = [
+        "All", "Lights", "Bedroom Items", "Kitchen Items", "Decorations", "Living Room", "Bathroom", "Office", "Outdoor", "Other"
+    ]
     if request.method == 'GET':
         c = conn.cursor()
         c.execute(''' SELECT * FROM posts WHERE id = ? ''', (id,))
@@ -200,9 +209,9 @@ def update_item(id):
         conn.close()
         for row in rows:
             posts.append(
-                {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price']}
+                {'id': row['id'], 'title': row['title'], 'description': row['description'], 'publisher': row['publisher'], 'short_description': row['short_description'], 'photo_url': row['photo_url'], 'price': row['price'], 'section': row['section']}
             )
-        return render_template('update_item.html', post = posts[0])
+        return render_template('update_item.html', post=posts[0], sections=sections)
     else:
         title = request.form.get('title')
         short_description = request.form.get('short_description')
@@ -210,9 +219,10 @@ def update_item(id):
         publisher = request.form.get('publisher')
         photo_url = request.form.get('photo_url')
         price = request.form.get('price')
+        section = request.form.get('section')
 
-        conn.execute(''' UPDATE posts SET title = ?, short_description = ?, description = ?, publisher = ?, photo_url = ?, price = ? WHERE id = ? ''',
-                     (title, short_description, description, publisher, photo_url, price, id))
+        conn.execute(''' UPDATE posts SET title = ?, short_description = ?, description = ?, publisher = ?, photo_url = ?, price = ?, section = ? WHERE id = ? ''',
+                     (title, short_description, description, publisher, photo_url, price, section, id))
         conn.commit()
         conn.close()
         return redirect(url_for('create_items'))

@@ -11,6 +11,7 @@ conn.execute('''
                 publisher TEXT NOT NULL,
                 picture_url TEXT NOT NULL,
                 price TEXT NOT NULL,
+                section TEXT NOT NULL
             )
         ''')
 
