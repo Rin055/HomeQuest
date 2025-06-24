@@ -93,20 +93,16 @@
             color: #6b655c;
             font-size: 1.01rem;
         }
-        .btn-brown {
+        .btn-brown, .btn-brown:visited {
             background-color: #3e3d39 !important;
             border-color: #3e3d39 !important;
             color: #fff !important;
             font-weight: 500;
             transition: background 0.2s, border 0.2s;
-            border-radius: 6px;
+            border-radius: 5px;
             padding: 6px 18px;
             font-size: 1rem;
             box-shadow: none !important;
-        }
-        .btn-brown:focus, .btn-brown:active:focus, .btn-brown.active:focus, .show>.btn-brown.dropdown-toggle:focus {
-            box-shadow: 0 0 0 0.20rem #b1a999aa !important;
-            outline: none;
         }
         .btn-brown:hover, .btn-brown:focus {
             background-color: #6b655c !important;
@@ -181,7 +177,7 @@
                 <p class="card-text mb-1"><span style="color:#b1a999;">Publisher:</span> {{ post['publisher'] }}</p>
                 <p class="card-text mb-1"><strong>Price:</strong> {{ post.price }}</p>
                 <div class="flex-grow-1"></div>
-                <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-brown mt-2">Shop Now</a>
+                <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-brown mt-2 mb-2">Shop Now</a>
             </div>
         </div>
         {% endfor %}

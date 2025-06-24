@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .navbar {
             background: linear-gradient(to right, #2b2a26, #3e3d39);
@@ -44,6 +44,55 @@
             box-shadow: none;
             outline: none;
         }
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 32px;
+        }
+        .profile-dropdown-btn {
+            background: transparent;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 2px solid #b1a999;
+            cursor: pointer;
+        }
+        .profile-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            margin-top: 8px;
+            background: #f8f7f5;
+            min-width: 150px;
+            box-shadow: 0 1px 4px #e0dbd2;
+            border-radius: 10px;
+            border: 1.5px solid #b1a999;
+            z-index: 2000;
+            padding: 8px 0;
+        }
+        .profile-dropdown-content a, .profile-dropdown-content form {
+            display: block;
+            padding: 10px 18px;
+            color: #504b46;
+            text-decoration: none;
+            font-size: 1rem;
+            background: none;
+            border: none;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+        }
+        .profile-dropdown-content a:hover, .profile-dropdown-content form:hover {
+            background: #edeae5;
+            color: #3e3d39;
+        }
+        .profile-dropdown.show .profile-dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -66,10 +115,38 @@
             <input class="form-control mr-sm-2" type="search" name="search-value" placeholder="Search for furniture...">
             <button class="btn btn-light" type="submit">Search</button>
         </form>
+        <div class="profile-dropdown" id="profileDropdown">
+            <a href="#" class="profile-dropdown-btn" onclick="toggleProfileDropdown(event)" title="Customer Profile">
+                <svg width="22" height="22" fill="#b1a999" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.87-3.13 7-7 7s-7-3.13-7-7a7 7 0 0 1 7-7zm0 16c5.33 0 10 2.17 10 4v2H2v-2c0-1.83 4.67-4 10-4z"></path></svg>
+            </a>
+            <div class="profile-dropdown-content">
+                {% if session.get('customer') %}
+                    <a href="{{ url_for('wishlist') }}">Wishlist</a>
+                    <form method="get" action="{{ url_for('logout_customer') }}">
+                        <button type="submit" style="background:none; border:none; color:#504b46; padding:0; font-size:1rem; cursor:pointer; width:100%; text-align:left;">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('customer_sign_in') }}">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </nav>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+function toggleProfileDropdown(e) {
+    e.preventDefault();
+    var dropdown = document.getElementById('profileDropdown');
+    dropdown.classList.toggle('show');
+    document.addEventListener('click', function handler(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+            document.removeEventListener('click', handler);
+        }
+    });
+}
+</script>
 </body>

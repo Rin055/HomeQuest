@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/B2f5v0RB/transperent-logo.png">
+    <title>Buy {{ post.title }} - HomeQuest</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #eae6de, #d1c9bb);
+            font-family: 'Poppins', sans-serif;
+            color: #504b46;
+        }
+        .buy-box {
+            max-width: 600px;
+            margin: 48px auto;
+            background: #f8f7f5;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px #e0dbd2;
+            padding: 32px 28px;
+        }
+        .buy-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5f544b;
+            margin-bottom: 18px;
+        }
+        .buy-img {
+            width: 100%;
+            max-height: 260px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            background: #edeae5;
+        }
+        .buy-price {
+            font-size: 1.3rem;
+            color: #6b655c;
+            margin-bottom: 18px;
+        }
+        .buy-desc {
+            color: #504b46;
+            font-size: 1.08rem;
+            margin-bottom: 24px;
+        }
+        .btn-brown, .btn-brown:visited {
+            background-color: #3e3d39 !important;
+            border-color: #3e3d39 !important;
+            color: #fff !important;
+            font-weight: 500;
+            transition: background 0.2s, border 0.2s;
+            border-radius: 5px;
+            padding: 6px 18px;
+            font-size: 1rem;
+            box-shadow: none !important;
+        }
+        .btn-brown:hover, .btn-brown:focus {
+            background-color: #6b655c !important;
+            border-color: #6b655c !important;
+            color: #fff !important;
+        }
+        .btn-back {
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+{% include "header.html" %}
+<div class="buy-box">
+    <div class="buy-title">Buy: {{ post.title }}</div>
+    {% if post.photo_url %}
+    <img src="{{ post.photo_url }}" class="buy-img" alt="Product Image">
+    {% endif %}
+    <div class="buy-price"><strong>Price:</strong> {{ post.price }}</div>
+    <div class="buy-desc">{{ post.short_description }}</div>
+    <form method="POST">
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" class="form-control" name="buyer_name" placeholder="Enter your name" {% if customer_name %}value="{{ customer_name }}"{% endif %} required>
+        </div>
+        <button type="submit" class="btn btn-brown btn-block">Confirm Purchase</button>
+    </form>
+    <a href="{{ url_for('show_post', id=post.id) }}" class="btn btn-secondary btn-back">Back to Item</a>
+</div>
+{% include "footer.html" %}
+</body>
+</html>

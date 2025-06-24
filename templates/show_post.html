@@ -96,6 +96,23 @@
             box-shadow: 0 1px 8px #e0dbd2;
         }
 
+        .btn-brown, .btn-brown:visited {
+            background-color: #3e3d39 !important;
+            border-color: #3e3d39 !important;
+            color: #fff !important;
+            font-weight: 500;
+            transition: background 0.2s, border 0.2s;
+            border-radius: 5px;
+            padding: 6px 18px;
+            font-size: 1rem;
+            box-shadow: none !important;
+        }
+        .btn-brown:hover, .btn-brown:focus {
+            background-color: #6b655c !important;
+            border-color: #6b655c !important;
+            color: #fff !important;
+        }
+
         @media (max-width: 991px) {
             .main-box {
                 max-width: 99vw;
@@ -130,7 +147,7 @@
     <div class="post-row">
         <div class="post-img-col">
             {% if post['photo_url'] %}
-            <img class="post-img-main" src="{{ post['photo_url'] }}" alt="Blog Image">
+            <img class="post-img-main" src="{{ post['photo_url'] }}" alt="{{ post['title'] }}">
             {% else %}
             <div class="post-img-main d-flex align-items-center justify-content-center"
                  style="color:#b1a999; font-size:2.2rem; font-weight:600; background:#edeae5;">
@@ -143,7 +160,7 @@
                 <div>
                     <div class="post-title">{{post['title']}}</div>
                     <div class="post-publisher">Publisher: {{post['publisher']}}</div>
-                    <div class="post-short"><em>{{post['short_description']}}</em></div>
+                    <div class="post-short"><strong>Price:</strong> {{ post.price }}</div>
                 </div>
                 <div class="ml-auto" style="min-width:120px; text-align:right;">
                     <span class="badge badge-pill" style="background-color:#5e5343; color:white; font-size:1.2rem; padding:10px 18px;">
@@ -154,9 +171,49 @@
             <div class="post-desc">
                 {{post['description']}}
             </div>
+            <div style="margin-top: 18px; display: flex; justify-content: flex-end; gap: 12px;">
+                <a href="{{ url_for('buy', id=post.id) if session.get('customer') else url_for('customer_sign_in') }}" class="btn btn-brown btn-lg" style="width:220px; max-width:100%;">Buy</a>
+                <form method="POST" action="{{ url_for('add_to_wishlist', post_id=post.id) if session.get('customer') else url_for('customer_sign_in') }}" style="display:inline;">
+                    <button type="submit" class="btn btn-outline-warning" style="margin-left:10px; border-radius:5px; border:1.5px solid #b1a999; color:#b1a999; background:transparent; font-weight:600;">
+                        &#9733; Wishlist
+                    </button>
+                </form>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div style="margin-top:14px;">
+                  {% for category, message in messages %}
+                    <div class="alert alert-success" style="background:#edeae5; color:#504b46; border:1.5px solid #b1a999; border-radius:8px; font-weight:500; padding:10px 18px; margin-bottom:0;">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="border-radius:14px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="buyModalLabel">Sign In Required</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color:#504b46;">
+        You need to sign in as a customer to buy this item.
+      </div>
+      <div class="modal-footer">
+        <a href="{{ url_for('customer_sign_in') }}" class="btn btn-brown">Customer Sign In</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% include 'footer.html' %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         crossorigin="anonymous"></script>
